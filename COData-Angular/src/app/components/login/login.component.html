@@ -1,0 +1,159 @@
+<div class="min-h-screen bg-gradient-to-br from-[#8B1538] via-[#9B2545] to-[#8B1538] flex items-center justify-center p-8">
+  <div class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    
+    <div class="text-white space-y-8 hidden md:block">
+      <div class="space-y-4">
+        <div class="w-32 h-32 bg-white rounded-2xl flex items-center justify-center mb-6 overflow-hidden">
+          <img
+            src="assets/logoCoData.png"
+            alt="COData"
+            class="w-28 h-28 object-contain"
+          />
+        </div>
+        <h1 class="text-5xl font-bold">COData</h1>
+        <p class="text-2xl text-red-100">
+          Sistema de Gestión Municipal
+        </p>
+        <p class="text-lg text-red-200 max-w-lg">
+          Plataforma integral para la administración eficiente de reportes
+          ciudadanos y gestión de servicios municipales.
+        </p>
+      </div>
+
+      <div class="space-y-4 pt-8">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+            </svg>
+          </div>
+          <span class="text-red-100">Gestión en tiempo real</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+            </svg>
+          </div>
+          <span class="text-red-100">Reportes multimedia</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+            </svg>
+          </div>
+          <span class="text-red-100">Seguimiento integral</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-2xl p-10">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">
+          Iniciar Sesión
+        </h2>
+        <p class="text-gray-600">
+          Ingresa tus credenciales para acceder al sistema
+        </p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="space-y-6">
+        
+        <div *ngIf="loginError" class="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
+          <svg class="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+          </svg>
+          <p class="text-sm text-red-800">{{ loginError }}</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Correo Electrónico
+          </label>
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="tu@email.com"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B1538] focus:border-transparent"
+            [ngClass]="{'border-red-500': loginForm.get('email')?.invalid && loginForm.get('email')?.touched}"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+          <input
+            type="password"
+            formControlName="contrasena" 
+            placeholder="••••••••"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B1538] focus:border-transparent"
+            [ngClass]="{'border-red-500': loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched}"
+          />
+        </div>
+
+        <div class="flex items-center justify-between">
+          <div class="flex items-center">
+            <input
+              type="checkbox"
+              id="remember"
+              class="w-4 h-4 text-[#8B1538] border-gray-300 rounded focus:ring-[#8B1538]"
+            />
+            <label for="remember" class="ml-2 text-sm text-gray-700">
+              Recordarme
+            </label>
+          </div>
+          <button type="button" class="text-sm text-[#8B1538] hover:underline font-medium">
+            ¿Olvidaste tu contraseña?
+          </button>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="isLoadingLogin"
+          class="w-full bg-[#8B1538] text-white py-3 rounded-lg font-semibold hover:bg-[#7A1230] transition-colors shadow-lg disabled:opacity-70 disabled:cursor-not-allowed flex justify-center items-center gap-2"
+        >
+          <span *ngIf="!isLoadingLogin">Iniciar Sesión →</span>
+          <span *ngIf="isLoadingLogin">
+            <i class="fas fa-spinner fa-spin"></i> Iniciando...
+          </span>
+        </button>
+
+        <div class="relative mt-6">
+          <div class="absolute inset-0 flex items-center">
+            <div class="w-full border-t border-gray-300"></div>
+          </div>
+          <div class="relative flex justify-center text-sm">
+            <span class="px-4 bg-white text-gray-500">
+              O continuar con
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mt-6">
+          <button
+            type="button"
+            class="flex items-center justify-center gap-2 bg-[#25D366] text-white py-3 rounded-lg font-medium hover:bg-green-600 transition-colors"
+          >
+            <i class="fa-brands fa-whatsapp text-lg"></i>
+            WhatsApp
+          </button>
+
+          <button
+            type="button"
+            class="flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+          >
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-5 h-5" alt="Google">
+            Google
+          </button>
+    <div class="text-center mt-8">
+  <p class="text-sm text-gray-600">
+    ¿No tienes una cuenta? 
+    <button type="button" routerLink="/registro" class="text-[#8B1538] font-semibold hover:underline cursor-pointer bg-transparent border-none p-0">
+      Regístrate aquí
+    </button>
+  </p>
+</div>
+
+     
+    </div>
+  

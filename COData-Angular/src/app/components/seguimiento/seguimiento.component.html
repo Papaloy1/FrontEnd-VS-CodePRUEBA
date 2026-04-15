@@ -1,0 +1,96 @@
+<div class="h-screen bg-gray-50 p-8 md:p-12 overflow-y-auto ml-64">
+  
+  <div class="mb-10">
+    <h1 class="text-3xl font-bold text-gray-950 flex items-center gap-3">
+      <i class="fa-solid fa-chart-pie text-[#8B1538]"></i>
+      Seguimiento de Incidencias
+    </h1>
+    <p class="text-gray-500 font-medium mt-1">Estadísticas generales y estado de tus reportes en tiempo real.</p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+      <div class="w-12 h-12 bg-red-50 text-[#8B1538] rounded-2xl flex items-center justify-center mb-4 text-xl">
+        <i class="fa-solid fa-list-check"></i>
+      </div>
+      <p class="text-sm font-bold text-gray-500 uppercase tracking-wider">Total Reportes</p>
+      <h3 class="text-3xl font-black text-gray-900">42</h3>
+    </div>
+
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+      <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 text-xl">
+        <i class="fa-solid fa-spinner fa-spin"></i>
+      </div>
+      <p class="text-sm font-bold text-gray-500 uppercase tracking-wider">En Proceso</p>
+      <h3 class="text-3xl font-black text-gray-900">12</h3>
+    </div>
+
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+      <div class="w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-4 text-xl">
+        <i class="fa-solid fa-check-double"></i>
+      </div>
+      <p class="text-sm font-bold text-gray-500 uppercase tracking-wider">Resueltos</p>
+      <h3 class="text-3xl font-black text-gray-900">28</h3>
+    </div>
+
+    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+      <div class="w-12 h-12 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mb-4 text-xl">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+      <p class="text-sm font-bold text-gray-500 uppercase tracking-wider">Tiempo Prom.</p>
+      <h3 class="text-3xl font-black text-gray-900">3d</h3>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    
+    <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+      <h3 class="text-xl font-bold text-gray-900 mb-6">Estado de Reportes</h3>
+      
+      <div class="space-y-6">
+        <div *ngFor="let item of estadisticas">
+          <div class="flex justify-between mb-2">
+            <span class="font-semibold text-gray-700">{{ item.categoria }}</span>
+            <span class="text-sm font-bold" [style.color]="item.color">{{ item.porcentaje }}%</span>
+          </div>
+          <div class="w-full bg-gray-100 rounded-full h-3">
+            <div class="h-3 rounded-full transition-all duration-1000" 
+                 [style.width.%]="item.porcentaje" 
+                 [style.backgroundColor]="item.color"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+      <h3 class="text-xl font-bold text-gray-900 mb-6">Actividad Reciente</h3>
+      
+      <div class="flow-root">
+        <ul role="list" class="-mb-8">
+          <li *ngFor="let act of actividades; let last = last">
+            <div class="relative pb-8">
+              <span *ngIf="!last" class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+              <div class="relative flex space-x-3">
+                <div>
+                  <span [class]="act.bgIcon" class="h-8 w-8 rounded-full flex items-center justify-center ring-8 ring-white">
+                    <i [class]="act.icon" class="text-white text-xs"></i>
+                  </span>
+                </div>
+                <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                  <div>
+                    <p class="text-sm text-gray-500">{{ act.mensaje }} <b class="font-bold text-gray-900">{{ act.id }}</b></p>
+                  </div>
+                  <div class="whitespace-nowrap text-right text-xs text-gray-400">
+                    <time>{{ act.tiempo }}</time>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>

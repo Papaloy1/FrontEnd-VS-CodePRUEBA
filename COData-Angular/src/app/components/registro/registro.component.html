@@ -1,0 +1,183 @@
+<div class="min-h-screen bg-gradient-to-br from-[#8B1538] via-[#9B2545] to-[#8B1538] flex items-center justify-center p-4 md:p-8">
+  <div class="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden relative">
+    
+    <a routerLink="/login" class="absolute top-6 right-8 text-gray-400 hover:text-[#8B1538] transition-colors flex items-center gap-1 text-sm font-medium">
+      Cerrar ✕
+    </a>
+
+    <div class="bg-gray-50 p-8 border-b border-gray-100">
+      <div class="flex items-center gap-4 mb-6">
+        <div class="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center p-2">
+          <img src="assets/logoCoData.png" alt="COData" class="w-full h-full object-contain" />
+        </div>
+        <div>
+          <h2 class="text-2xl font-bold text-gray-900">Crear Cuenta</h2>
+          <p class="text-gray-500 font-medium">
+            Paso {{ currentStep === 'personal' ? '1' : currentStep === 'contact' ? '2' : currentStep === 'security' ? '3' : '4' }} de 4
+          </p>
+        </div>
+      </div>
+      
+      <div class="w-full bg-gray-200 rounded-full h-2">
+        <div class="bg-[#8B1538] h-2 rounded-full transition-all duration-500 ease-out" [style.width.%]="getStepProgress()"></div>
+      </div>
+    </div>
+
+    <div *ngIf="submitSuccess" class="p-12 text-center">
+      <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+        <svg class="w-12 h-12 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      <h3 class="text-3xl font-bold text-gray-900 mb-2">¡Bienvenido a COData!</h3>
+      <p class="text-gray-600">Tu cuenta ha sido creada con éxito. Preparando tu entorno de trabajo...</p>
+    </div>
+
+    <form *ngIf="!submitSuccess" [formGroup]="registroForm" (ngSubmit)="submitRegistro()" class="p-8">
+      
+      <div *ngIf="submitError" class="mb-6 bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
+        <p class="text-sm text-red-800 font-medium">{{ submitError }}</p>
+      </div>
+
+      <div *ngIf="currentStep === 'personal'" class="space-y-6">
+        <div>
+          <h3 class="text-xl font-bold text-gray-800 mb-1">Acerca de ti</h3>
+          <p class="text-sm text-gray-500 mb-6">Ingresa tu nombre real para identificarte en el sistema.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="input-nombre" class="block text-sm font-medium text-gray-700 mb-2">Nombre(s)</label>
+            <input id="input-nombre" type="text" formControlName="nombre" placeholder="Ej. Juan Carlos" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8B1538] focus:border-transparent outline-none transition-all"
+              [ngClass]="{'border-red-500': hasError('nombre')}" />
+            <p *ngIf="hasError('nombre')" class="text-xs text-red-500 mt-1">{{ getErrorMessage('nombre') }}</p>
+          </div>
+          <div>
+            <label for="input-apellido" class="block text-sm font-medium text-gray-700 mb-2">Apellido(s)</label>
+            <input id="input-apellido" type="text" formControlName="apellido" placeholder="Ej. Pérez"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8B1538] focus:border-transparent outline-none transition-all"
+              [ngClass]="{'border-red-500': hasError('apellido')}" />
+            <p *ngIf="hasError('apellido')" class="text-xs text-red-500 mt-1">{{ getErrorMessage('apellido') }}</p>
+          </div>
+        </div>
+
+        <div class="pt-6 flex justify-end">
+          <button type="button" (click)="goToStep('contact')" class="bg-[#8B1538] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#7A1230] transition-colors shadow-md">
+            Continuar →
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 'contact'" class="space-y-6">
+        <div>
+          <h3 class="text-xl font-bold text-gray-800 mb-1">Información de Contacto</h3>
+          <p class="text-sm text-gray-500 mb-6">¿Cómo podemos comunicarnos contigo?</p>
+        </div>
+
+        <div class="space-y-5">
+          <div>
+            <label for="input-email" class="block text-sm font-medium text-gray-700 mb-2">Correo Electrónico Institucional/Personal</label>
+            <input id="input-email" type="email" formControlName="email" placeholder="tu@email.com"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8B1538] focus:border-transparent outline-none transition-all"
+              [ngClass]="{'border-red-500': hasError('email')}" />
+            <p *ngIf="hasError('email')" class="text-xs text-red-500 mt-1">{{ getErrorMessage('email') }}</p>
+          </div>
+          <div>
+            <label for="input-telefono" class="block text-sm font-medium text-gray-700 mb-2">Teléfono Móvil (Opcional)</label>
+            <input id="input-telefono" type="tel" formControlName="teléfono" placeholder="10 dígitos"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8B1538] focus:border-transparent outline-none transition-all"
+              [ngClass]="{'border-red-500': hasError('teléfono')}" />
+          </div>
+        </div>
+
+        <div class="pt-6 flex justify-between items-center">
+          <button type="button" (click)="goToStep('personal')" class="text-gray-500 font-medium hover:text-gray-800 transition-colors">← Volver</button>
+          <button type="button" (click)="goToStep('security')" class="bg-[#8B1538] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#7A1230] transition-colors shadow-md">
+            Siguiente Paso →
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 'security'" class="space-y-6">
+        <div>
+          <h3 class="text-xl font-bold text-gray-800 mb-1">Protege tu Cuenta</h3>
+          <p class="text-sm text-gray-500 mb-6">Crea una contraseña segura para tu acceso.</p>
+        </div>
+
+        <div class="space-y-5">
+          <div>
+            <label for="input-contrasena" class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
+            <input id="input-contrasena" type="password" formControlName="contraseña" placeholder="Mínimo 6 caracteres"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8B1538] focus:border-transparent outline-none transition-all"
+              [ngClass]="{'border-red-500': hasError('contraseña')}" />
+            
+            <div class="mt-3">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-xs font-medium text-gray-500">Nivel de seguridad</span>
+                <span class="text-xs font-bold" [style.color]="getPasswordStrengthColor()">{{ getPasswordStrengthLabel() }}</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-1.5">
+                <div class="h-1.5 rounded-full transition-all duration-300" 
+                     [style.width.%]="passwordStrength" 
+                     [style.backgroundColor]="getPasswordStrengthColor()"></div>
+              </div>
+            </div>
+            <p *ngIf="hasError('contraseña')" class="text-xs text-red-500 mt-2">{{ getErrorMessage('contraseña') }}</p>
+          </div>
+
+          <div>
+            <label for="input-confirmar" class="block text-sm font-medium text-gray-700 mb-2">Confirmar Contraseña</label>
+            <input id="input-confirmar" type="password" formControlName="confirmarContraseña" placeholder="Repite tu contraseña"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#8B1538] focus:border-transparent outline-none transition-all"
+              [ngClass]="{'border-red-500': hasError('confirmarContraseña') || registroForm.hasError('passwordMismatch')}" />
+            <p *ngIf="registroForm.hasError('passwordMismatch') && registroForm.get('confirmarContraseña')?.touched" class="text-xs text-red-500 mt-1">Las contraseñas no coinciden</p>
+          </div>
+        </div>
+
+        <div class="pt-6 flex justify-between items-center">
+          <button type="button" (click)="goToStep('contact')" class="text-gray-500 font-medium hover:text-gray-800 transition-colors">← Volver</button>
+          <button type="button" (click)="goToStep('confirm')" class="bg-[#8B1538] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#7A1230] transition-colors shadow-md">
+            Último Paso →
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 'confirm'" class="space-y-6">
+        <div>
+          <h3 class="text-xl font-bold text-gray-800 mb-1">Revisión Final</h3>
+          <p class="text-sm text-gray-500 mb-6">Casi terminamos. Lee los términos antes de finalizar.</p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-6">
+          <div class="flex items-start">
+            <div class="flex items-center h-5">
+              <input id="checkbox-terminos" type="checkbox" aria-label="Aceptar términos y condiciones" formControlName="agreeToTerms" (change)="agreeToTerms = $any($event.target).checked"
+                class="w-5 h-5 text-[#8B1538] bg-gray-100 border-gray-300 rounded focus:ring-[#8B1538]" />
+            </div>
+            <div class="ml-3 text-sm">
+              <label for="checkbox-terminos" class="font-medium text-gray-900 cursor-pointer">Acepto los términos y condiciones</label>
+              <p class="text-gray-500 mt-1">Al crear una cuenta, aceptas nuestras Condiciones de Servicio y la Política de Privacidad relacionada con la gestión de datos ciudadanos.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 flex justify-between items-center">
+          <button type="button" (click)="goToStep('security')" class="text-gray-500 font-medium hover:text-gray-800 transition-colors">← Volver</button>
+          <button type="submit" [disabled]="registroForm.invalid || !agreeToTerms || isLoading" 
+            class="bg-[#8B1538] text-white px-8 py-3 rounded-xl font-semibold hover:bg-[#7A1230] transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+            <span *ngIf="!isLoading">Crear mi cuenta</span>
+            <span *ngIf="isLoading" class="flex items-center gap-2">
+              <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Procesando...
+            </span>
+          </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="h-screen bg-gray-50 p-8 md:p-12 overflow-y-auto ml-64">
+  
+  <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-950 flex items-center gap-3">
+        <i class="fa-solid fa-folder-open text-[#8B1538]"></i>
+        Mis Reportes Ciudadanos
+      </h1>
+      <p class="text-gray-500 font-medium mt-1">Gestiona y revisa el historial de tus incidencias reportadas.</p>
+    </div>
+    
+    <button class="flex items-center gap-2 px-6 py-3 bg-[#8B1538] text-white rounded-2xl font-bold hover:bg-[#70112d] transition-all shadow-lg hover:scale-105">
+      <i class="fa-solid fa-plus"></i>
+      Nuevo Reporte
+    </button>
+  </div>
+
+  <div class="flex gap-3 mb-8 overflow-x-auto pb-2">
+    <button class="px-5 py-2 bg-white border border-gray-200 rounded-full text-sm font-bold text-gray-700 hover:border-[#8B1538] hover:text-[#8B1538] transition-all shadow-sm">Todos</button>
+    <button class="px-5 py-2 bg-white border border-gray-200 rounded-full text-sm font-bold text-gray-700 hover:border-orange-500 hover:text-orange-500 transition-all shadow-sm">Pendientes</button>
+    <button class="px-5 py-2 bg-white border border-gray-200 rounded-full text-sm font-bold text-gray-700 hover:border-blue-500 hover:text-blue-500 transition-all shadow-sm">En Proceso</button>
+    <button class="px-5 py-2 bg-white border border-gray-200 rounded-full text-sm font-bold text-gray-700 hover:border-green-500 hover:text-green-500 transition-all shadow-sm">Resueltos</button>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6">
+    
+    <div *ngFor="let reporte of misReportes" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow flex flex-col md:flex-row">
+      
+      <div class="w-full md:w-64 h-48 md:h-auto bg-gray-200 relative">
+        <img [src]="reporte.fotoUrl" [alt]="reporte.titulo" class="w-full h-full object-cover">
+        <div class="absolute top-4 left-4">
+          <span [class]="reporte.statusClass" class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg text-white">
+            {{ reporte.status }}
+          </span>
+        </div>
+      </div>
+
+      <div class="p-6 flex-1 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-bold text-gray-900">{{ reporte.titulo }}</h3>
+            <span class="text-sm font-mono text-gray-400 font-bold">#{{ reporte.folio }}</span>
+          </div>
+          <p class="text-gray-500 text-sm mb-4 line-clamp-2">{{ reporte.descripcion }}</p>
+          
+          <div class="flex flex-wrap gap-4 text-xs font-bold text-gray-400">
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot"></i> {{ reporte.ubicacion }}</span>
+            <span class="flex items-center gap-1.5"><i class="fa-solid fa-calendar"></i> {{ reporte.fecha }}</span>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-gray-50 flex items-center justify-between">
+          <div class="flex -space-x-2">
+            <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-500" title="Ver comentarios">
+              <i class="fa-solid fa-comment"></i>
+            </div>
+            <span class="pl-4 text-xs font-bold text-gray-400 self-center">{{ reporte.comentarios }} comentarios</span>
+          </div>
+          
+          <button class="text-[#8B1538] font-bold text-sm hover:underline flex items-center gap-1">
+            Ver detalles <i class="fa-solid fa-chevron-right text-[10px]"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

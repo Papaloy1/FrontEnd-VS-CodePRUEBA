@@ -1,0 +1,41 @@
+<nav class="flex flex-col h-screen w-64 bg-[#8B1538] text-white shadow-xl fixed left-0 top-0">
+  <div class="p-6 border-b border-white/10 flex items-center gap-3">
+    <div class="w-10 h-10 bg-white rounded-lg p-1">
+      <img src="assets/logoCoData.png" alt="Logo" class="w-full h-full object-contain">
+    </div>
+    <span class="text-xl font-bold tracking-tight">COData</span>
+  </div>
+
+  <div class="flex-1 px-4 py-6 space-y-2">
+    <a routerLink="/mapa" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors group">
+      <i class="fa-solid fa-map text-red-200 group-hover:text-white"></i>
+      <span class="font-medium">Mapa de Reportes</span>
+    </a>
+
+    <a routerLink="/reportes" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors group">
+      <i class="fa-solid fa-file-invoice text-red-200 group-hover:text-white"></i>
+      <span class="font-medium">Mis Reportes</span>
+    </a>
+
+    <a routerLink="/seguimiento" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors group">
+      <i class="fa-solid fa-chart-line text-red-200 group-hover:text-white"></i>
+      <span class="font-medium">Seguimiento</span>
+    </a>
+
+    <div class="pt-4 pb-2 px-4">
+      <p class="text-xs font-semibold text-red-300 uppercase tracking-wider">Configuración</p>
+    </div>
+
+    <a routerLink="/perfil" routerLinkActive="bg-white/10" class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-white/5 transition-colors group">
+      <i class="fa-solid fa-user text-red-200 group-hover:text-white"></i>
+      <span class="font-medium">Mi Perfil</span>
+    </a>
+  </div>
+
+  <div class="p-4 border-t border-white/10">
+    <button routerLink="/login" class="flex items-center gap-3 w-full px-4 py-3 text-red-100 hover:bg-red-700 rounded-lg transition-colors">
+      <i class="fa-solid fa-right-from-bracket"></i>
+      <span class="font-medium">Cerrar Sesión</span>
+    </button>
+  </div>
+</nav>
