@@ -27,10 +27,17 @@
     <div *ngFor="let reporte of misReportes" class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow flex flex-col md:flex-row">
       
       <div class="w-full md:w-64 h-48 md:h-auto bg-gray-200 relative">
-        <img [src]="reporte.fotoUrl" [alt]="reporte.titulo" class="w-full h-full object-cover">
+        <img [src]="'https://via.placeholder.com/400x300/8B1538/ffffff?text=Reporte+' + reporte.reporteId" [alt]="reporte.titulo" class="w-full h-full object-cover">
+        
         <div class="absolute top-4 left-4">
-          <span [class]="reporte.statusClass" class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg text-white">
-            {{ reporte.status }}
+          <span [ngClass]="{
+                  'bg-orange-500': reporte.estado === 'Pendiente',
+                  'bg-blue-500': reporte.estado === 'En Proceso' || reporte.estado === 'En Revisión',
+                  'bg-green-500': reporte.estado === 'Resuelto',
+                  'bg-gray-500': !reporte.estado
+                }" 
+                class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg text-white">
+            {{ reporte.estado || 'Pendiente' }}
           </span>
         </div>
       </div>
@@ -39,13 +46,19 @@
         <div>
           <div class="flex justify-between items-start mb-2">
             <h3 class="text-xl font-bold text-gray-900">{{ reporte.titulo }}</h3>
-            <span class="text-sm font-mono text-gray-400 font-bold">#{{ reporte.folio }}</span>
+            <span class="text-sm font-mono text-gray-400 font-bold">#REP-{{ reporte.reporteId }}</span>
           </div>
           <p class="text-gray-500 text-sm mb-4 line-clamp-2">{{ reporte.descripcion }}</p>
           
           <div class="flex flex-wrap gap-4 text-xs font-bold text-gray-400">
-            <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot"></i> {{ reporte.ubicacion }}</span>
-            <span class="flex items-center gap-1.5"><i class="fa-solid fa-calendar"></i> {{ reporte.fecha }}</span>
+            <span class="flex items-center gap-1.5">
+              <i class="fa-solid fa-location-dot"></i> 
+              {{ reporte.ubicacion?.direccion || 'Georreferencia mapa' }}
+            </span>
+            <span class="flex items-center gap-1.5">
+              <i class="fa-solid fa-calendar"></i> 
+              {{ reporte.fecha_Creacion | date:'dd/MMM/yyyy' }}
+            </span>
           </div>
         </div>
 
@@ -54,7 +67,7 @@
             <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-500" title="Ver comentarios">
               <i class="fa-solid fa-comment"></i>
             </div>
-            <span class="pl-4 text-xs font-bold text-gray-400 self-center">{{ reporte.comentarios }} comentarios</span>
+            <span class="pl-4 text-xs font-bold text-gray-400 self-center">0 comentarios</span>
           </div>
           
           <button class="text-[#8B1538] font-bold text-sm hover:underline flex items-center gap-1">

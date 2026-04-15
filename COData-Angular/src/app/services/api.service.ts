@@ -46,11 +46,25 @@ export class ApiService {
   // ... (Aplica ', this.httpOptions' al final de tus otros métodos POST, PUT y DELETE) ...
 
   // ============ REPORTES (EJEMPLO ACTUALIZADO) ============
-  crearReporte(reporte: Reportes): Observable<Reportes> {
+// ============ REPORTES ============
+  
+  // Obtener todos los reportes para pintar los marcadores
+  getReportes(): Observable<Reportes[]> {
+    return this.http.get<Reportes[]>(`${this.apiUrl}/Reportes`, this.httpOptions);
+  }
+
+  crearReporte(reporte: any): Observable<Reportes> { // Se puede usar 'any' o un DTO específico si el modelo Reportes requiere el ID
     return this.http.post<Reportes>(`${this.apiUrl}/Reportes`, reporte, this.httpOptions);
   }
 
-  actualizarReporte(id: number, reporte: Reportes): Observable<void> {
+  actualizarReporte(id: number, reporte: any): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/Reportes/${id}`, reporte, this.httpOptions);
+  }
+
+  eliminarReporte(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/Reportes/${id}`, this.httpOptions);
+  }
+  crearUbicacion(ubicacion: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Ubicaciones`, ubicacion, this.httpOptions);
   }
 }
